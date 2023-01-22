@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="write" element={<Write />} />
         <Route path="single" element={<Single />} />
+        <Route path="settings" element={<Settings />} />
       </Routes>
       <Footer />
     </div>
