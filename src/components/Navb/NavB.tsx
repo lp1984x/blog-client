@@ -28,6 +28,12 @@ export default function NavB() {
         <NavDropdown.Item href="#action/3.4">Cinema</NavDropdown.Item>
         <NavDropdown.Item href="#action/3.4">Tech</NavDropdown.Item>
       </NavDropdown>
+
+      <Nav.Link href="#about">
+        <Link to="/about" style={{ all: "unset" }}>
+          About
+        </Link>
+      </Nav.Link>
     </Nav>
   );
 }

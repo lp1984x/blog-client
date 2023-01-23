@@ -6,17 +6,28 @@ import Home from "./components/pages/Home";
 import Settings from "./components/pages/Settings";
 import Single from "./components/pages/Single";
 import Write from "./components/pages/Write";
+import About from "./components/About/About";
+import { Container } from "react-bootstrap";
+import "./app.scss";
+import Login from "./components/pages/Login";
+import Signin from "./components/pages/Signin";
 
 function App() {
   return (
-    <div className="App d-flex flex-column min-vh-100">
+    <div className="App ">
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="write" element={<Write />} />
-        <Route path="single" element={<Single />} />
-        <Route path="settings" element={<Settings />} />
-      </Routes>
+      <Container className="cont">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="write" element={<Write />} />
+          <Route path="single" element={<Single />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signin" element={<Signin />} />
+        </Routes>
+      </Container>
+
       <Footer />
     </div>
   );

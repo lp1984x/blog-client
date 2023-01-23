@@ -7,6 +7,7 @@ import User from "../User/User";
 import { Link } from "react-router-dom";
 
 export default function Header() {
+  let user = true;
   return (
     <Navbar
       collapseOnSelect
@@ -22,11 +23,13 @@ export default function Header() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <NavB />
-
-          <Sign />
-          <Link to="/settings">
-            <User />
-          </Link>
+          {user ? (
+            <Link to="/settings">
+              <User />
+            </Link>
+          ) : (
+            <Sign />
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

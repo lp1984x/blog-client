@@ -10,10 +10,10 @@ import {
 
 export default function Write() {
   return (
-    <Container>
+    <Container className="col-6 ">
       <Form>
         <Row>
-          <Form.Group as={Col} className="mb-3" controlId="formBasicEmail">
+          <Form.Group as={Col} className="mb-3">
             <FloatingLabel
               controlId="floatingInput"
               label="Title"
@@ -44,13 +44,16 @@ export default function Write() {
           <Form.Label className="text-muted">Post</Form.Label>
           <Form.Control
             as="textarea"
-            rows={10}
+            rows={12}
             placeholder="Tell your story..."
+            style={{ resize: "none" }}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Publish
-        </Button>
+        <div className="row justify-content-center">
+          <Button variant="success" type="submit">
+            Publish
+          </Button>
+        </div>
       </Form>
     </Container>
   );
