@@ -1,8 +1,11 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 export default function SinglePost() {
+  const location = useLocation();
+  console.log(location.pathname.split("/")[2]);
   return (
     <Card className="col-12">
       <Card.Header className="d-flex justify-content-between">

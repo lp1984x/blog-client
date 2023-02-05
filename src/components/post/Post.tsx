@@ -2,27 +2,47 @@ import React from "react";
 import { Button, Card } from "react-bootstrap";
 import mg from "./post.jpg";
 import { Link } from "react-router-dom";
+import { IPost } from "../../models";
+import "./post.scss";
 
-export default function Post() {
+interface PostP {
+  post: IPost;
+}
+
+export default function Post({ post }: PostP) {
   return (
-    <Card style={{ width: "20em" }} className="my-2 mx-2 p-0">
-      <Card.Img
-        variant="top"
-        src={mg}
-        style={{ height: "20em", pointerEvents: "none" }}
-      />
+    <Card style={{ width: "38em" }} className="my-2 p-0">
+      {post.photo && (
+        <Card.Img
+          variant="top"
+          src={post.photo}
+          style={{ height: "30em", pointerEvents: "none" }}
+        />
+      )}
       <Card.Body>
-        <Card.Title style={{ userSelect: "none" }}>Card Title</Card.Title>
-        <Card.Text style={{ userSelect: "none" }}>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+        <Link to={`/post/${post._id}`} style={{ all: "unset" }}>
+          <Card.Title style={{ userSelect: "none", cursor: "pointer" }}>
+            {post.title}
+          </Card.Title>
+        </Link>
+
+        <Card.Subtitle className="mb-2 text-muted">
+          {post.username}&nbsp;{new Date(post.updatedAt).toDateString()}
+        </Card.Subtitle>
+        <Card.Text
+          style={{
+            userSelect: "none",
+          }}
+          className="txt"
+        >
+          {post.desc}
         </Card.Text>
-        <Button variant="primary">
-          <Link to="/single" style={{ all: "unset" }}>
-            Read post
-          </Link>
-        </Button>
       </Card.Body>
+      <Card.Footer>
+        {post.categories?.map((i) => (
+          <Button variant="Light">{i}</Button>
+        ))}
+      </Card.Footer>
     </Card>
   );
 }

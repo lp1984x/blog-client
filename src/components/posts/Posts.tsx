@@ -1,20 +1,23 @@
 import React from "react";
 import Post from "../post/Post";
+import { IPost } from "../../models";
 
-export default function Posts() {
+interface PostsProps {
+  posts: IPost[];
+}
+
+export default function Posts({ posts }: PostsProps) {
   return (
-    <div className="col-10 d-flex flex-wrap ">
+    <div className="d-flex flex-column align-items-center">
       <div className="row">
-        <div className="col-md-auto">
-          <h2 className="mb-4">Latest Posts</h2>
+        <div className="col-md-auto ">
+          <h2 className="mb-4 align">Recent Posts</h2>
         </div>
       </div>
-      <div className="row ">
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+      <div className="col-12 d-flex flex-wrap  row justify-content-between">
+        {posts.map((p, i) => (
+          <Post post={p} key={i} />
+        ))}
       </div>
     </div>
   );

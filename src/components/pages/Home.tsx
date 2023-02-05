@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Posts from "../posts/Posts";
-import Sidebar from "../sidebar/Sidebar";
+import axios from "axios";
+import { IPost } from "../../models";
 
 export default function Home() {
+  const [posts, setPosts] = useState<IPost[]>([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await axios.get<IPost[]>("/posts");
+      setPosts(res.data);
+    };
+    fetchPosts();
+  }, []);
+
   return (
-    <Container className=" d-flex justify-content-between ">
-      <Posts />
-      <Sidebar />
+    <Container className=" p-0 ">
+      <Posts posts={posts} />
     </Container>
   );
 }

@@ -19,12 +19,12 @@ function App() {
       <Container className="cont">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="write" element={<Write />} />
-          <Route path="single" element={<Single />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="about" element={<About />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signin" element={<Signin />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/post/:postId" element={<Single />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Signin />} />
         </Routes>
       </Container>
 
