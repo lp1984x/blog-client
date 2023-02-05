@@ -7,7 +7,7 @@ import User from "../User/User";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  let user = true;
+  let user = false;
   return (
     <Navbar
       collapseOnSelect
@@ -17,8 +17,10 @@ export default function Header() {
       className="mb-5"
     >
       <Container>
-        <Navbar.Brand href="#home" className="text-info">
-          Blog
+        <Navbar.Brand className="text-info">
+          <Link to="/" className="nav-link">
+            Blog
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

@@ -1,17 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import { IPost } from "../../models";
 
 export default function SinglePost() {
   const location = useLocation();
-  console.log(location.pathname.split("/")[2]);
+  const path = location.pathname.split("/")[2];
+  const [post, setPost] = useState<IPost>({
+    _id: "",
+    title: "",
+    desc: "",
+    photo: "",
+    username: "",
+    categories: [],
+    updatedAt: "",
+  });
+
+  useEffect(() => {
+    const getPost = async () => {
+      const res = await axios.get("/posts/" + path);
+      setPost(res.data);
+    };
+    getPost();
+  }, [path]);
+
   return (
     <Card className="col-12">
+      {post.photo && <Card.Img variant="top" src={post.photo} />}
+
       <Card.Header className="d-flex justify-content-between">
         <div>
-          <Card.Title>Special title treatment</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">Life</Card.Subtitle>
+          <Card.Title>{post.title}</Card.Title>
+
+          <small className="text-muted">
+            Author:{" "}
+            <Link
+              to={`/?user=${post.username}`}
+              style={{ all: "unset", cursor: "pointer" }}
+            >
+              {post?.username}
+            </Link>
+          </small>
         </div>
         <div>
           <br />
@@ -20,29 +51,15 @@ export default function SinglePost() {
         </div>
       </Card.Header>
       <Card.Body>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.Some quick example text to build on the
-          card title and make up the bulk of the card's content.Some quick
-          example text to build on the card title and make up the bulk of the
-          card's content.Some quick example text to build on the card title and
-          make up the bulk of the card's content.Some quick example text to
-          build on the card title and make up the bulk of the card's
-          content.Some quick example text to build on the card title and make up
-          the bulk of the card's content.Some quick example text to build on the
-          card title and make up the bulk of the card's content.Some quick
-          example text to build on the card title and make up the bulk of the
-          card's content.Some quick example text to build on the card title and
-          make up the bulk of the card's content.Some quick example text to
-          build on the card title and make up the bulk of the card's
-          content.Some quick example text to build on the card title and make up
-          the bulk of the card's content.Some quick example text to build on the
-          card title and make up the bulk of the card's content.Some quick
-          example text to build on the card title and make up the bulk of the
-          card's content.Some quick example text to build on the card title and
-          make up the bulk of the card's content.
-        </Card.Text>
+        <Card.Text>{post.desc}</Card.Text>
       </Card.Body>
+      <Card.Footer className="d-flex justify-content-between">
+        <small className="text-muted">{post.categories}</small>
+
+        <small className="text-muted">
+          {new Date(post.updatedAt).toDateString()}
+        </small>
+      </Card.Footer>
     </Card>
   );
 }

@@ -3,7 +3,7 @@ import { Card, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-export default function Signin() {
+export default function Reg() {
   return (
     <Container className="d-flex justify-content-center">
       <Card className="col-4">

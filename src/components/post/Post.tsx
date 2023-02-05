@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
-import mg from "./post.jpg";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IPost } from "../../models";
 import "./post.scss";
@@ -19,16 +18,21 @@ export default function Post({ post }: PostP) {
           style={{ height: "30em", pointerEvents: "none" }}
         />
       )}
-      <Card.Body>
+      <Card.Header>
         <Link to={`/post/${post._id}`} style={{ all: "unset" }}>
           <Card.Title style={{ userSelect: "none", cursor: "pointer" }}>
             {post.title}
           </Card.Title>
         </Link>
 
-        <Card.Subtitle className="mb-2 text-muted">
-          {post.username}&nbsp;{new Date(post.updatedAt).toDateString()}
+        <Card.Subtitle className="mb-2 text-muted d-flex justify-content-between">
+          <small className="text-muted">Author: {post.username}</small>
+          <small className="text-muted">
+            {new Date(post.updatedAt).toDateString()}
+          </small>
         </Card.Subtitle>
+      </Card.Header>
+      <Card.Body>
         <Card.Text
           style={{
             userSelect: "none",
@@ -39,8 +43,10 @@ export default function Post({ post }: PostP) {
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        {post.categories?.map((i) => (
-          <Button variant="Light">{i}</Button>
+        {post.categories?.map((c, i) => (
+          <small className="text-muted" key={i}>
+            {c}
+          </small>
         ))}
       </Card.Footer>
     </Card>

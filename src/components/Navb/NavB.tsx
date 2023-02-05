@@ -1,39 +1,50 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Icats } from "../../models";
 
 export default function NavB() {
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    const getCats = async () => {
+      const res = await axios.get("/categories");
+      setCats(res.data);
+    };
+    getCats();
+  }, []);
+
   return (
     <Nav className="me-auto">
-      <Nav.Link href="#home">
-        <Link to="/" style={{ all: "unset" }}>
-          Home
-        </Link>
-      </Nav.Link>
+      <Link to="/" className="nav-link">
+        Home
+      </Link>
 
-      <Nav.Link href="#features">
-        <Link to="/write" style={{ all: "unset" }}>
-          Write
-        </Link>
-      </Nav.Link>
+      <Link to="/write" className="nav-link">
+        Write
+      </Link>
 
       <NavDropdown
         title="Categories"
         id="basic-nav-dropdown"
         menuVariant="dark"
       >
-        <NavDropdown.Item href="#action/3.1">Life</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Music</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Sport</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.4">Cinema</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.4">Tech</NavDropdown.Item>
+        {cats.map((c: Icats, i) => (
+          <NavDropdown.Item href="#" key={i}>
+            <Link
+              to={`/?cat=${c.name}`}
+              style={{ all: "unset", cursor: "pointer" }}
+            >
+              {c.name}
+            </Link>
+          </NavDropdown.Item>
+        ))}
       </NavDropdown>
 
-      <Nav.Link href="#about">
-        <Link to="/about" style={{ all: "unset" }}>
-          About
-        </Link>
-      </Nav.Link>
+      <Link to="/about" className="nav-link">
+        About
+      </Link>
     </Nav>
   );
 }

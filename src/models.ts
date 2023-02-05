@@ -7,3 +7,10 @@ export interface IPost {
       categories?: string[];
       updatedAt?: any
     };
+
+export interface Icats {
+  _id?:string;
+  name:string;
+  createdAt?:any;
+  updatedAt?: any;
+}

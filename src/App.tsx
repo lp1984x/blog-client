@@ -10,7 +10,7 @@ import About from "./components/About/About";
 import { Container } from "react-bootstrap";
 import "./app.scss";
 import Login from "./components/pages/Login";
-import Signin from "./components/pages/Signin";
+import Reg from "./components/pages/Reg";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signin" element={<Reg />} />
         </Routes>
       </Container>
 

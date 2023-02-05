@@ -6,19 +6,15 @@ export default function Sign() {
   return (
     <Nav className="justify-content-end" activeKey="/home">
       <Nav.Item>
-        <Nav.Link href="#">
-          <Link to="/signin" style={{ all: "unset" }}>
-            Sign in
-          </Link>
-        </Nav.Link>
+        <Link to="/login" className="nav-link">
+          Log
+        </Link>
       </Nav.Item>
       <div className="slash">/</div>
       <Nav.Item>
-        <Nav.Link href="#">
-          <Link to="/login" style={{ all: "unset" }}>
-            Log in
-          </Link>
-        </Nav.Link>
+        <Link to="/reg" className="nav-link">
+          Reg
+        </Link>
       </Nav.Item>
     </Nav>
   );
