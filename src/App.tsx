@@ -24,7 +24,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signin" element={<Reg />} />
+          <Route path="/reg" element={<Reg />} />
         </Routes>
       </Container>
 

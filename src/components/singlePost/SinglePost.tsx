@@ -40,7 +40,7 @@ export default function SinglePost() {
               to={`/?user=${post.username}`}
               style={{ all: "unset", cursor: "pointer" }}
             >
-              {post?.username}
+              {post.username}
             </Link>
           </small>
         </div>
