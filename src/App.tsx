@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Fotter";
@@ -11,8 +11,10 @@ import { Container } from "react-bootstrap";
 import "./app.scss";
 import Login from "./components/pages/Login";
 import Reg from "./components/pages/Reg";
+import { MyContext } from "./context/Context";
 
 function App() {
+  const { user } = useContext(MyContext);
   return (
     <div className="App ">
       <Header />
@@ -23,7 +25,7 @@ function App() {
           <Route path="/post/:postId" element={<Single />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/reg" element={<Reg />} />
         </Routes>
       </Container>

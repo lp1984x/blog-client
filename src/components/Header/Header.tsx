@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./header.scss";
 import { Container, Navbar } from "react-bootstrap";
 import Sign from "../Sign/Sign";
 import NavB from "../Navb/NavB";
 import User from "../User/User";
 import { Link } from "react-router-dom";
+import { MyContext } from "../../context/Context";
 
 export default function Header() {
-  let user = false;
+  const { user } = useContext(MyContext);
   return (
     <Navbar
       collapseOnSelect

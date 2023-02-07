@@ -14,3 +14,11 @@ export interface Icats {
   createdAt?:any;
   updatedAt?: any;
 }
+
+export interface IUser{
+  username: string,
+  email: string,
+  password: string,
+  profilePic: string,
+   
+}

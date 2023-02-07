@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "react-bootstrap/Image";
-import userImg from "./user.png";
+import { MyContext } from "../../context/Context";
 
 export default function User() {
+  const { user } = useContext(MyContext);
   return (
     <Image
-      src={userImg}
+      src={user.profilePic}
       roundedCircle
-      style={{ height: "3em", cursor: "pointer" }}
+      style={{ height: "3em", width: "3em", cursor: "pointer" }}
     />
   );
 }

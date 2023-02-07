@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
+import { MyContext } from "../../context/Context";
 import userImg from "../User/user.png";
 
 export default function Settings() {
+  const { dispatch } = useContext(MyContext);
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <Container className="d-flex justify-content-center">
       <Card className="col-4">
@@ -43,7 +49,12 @@ export default function Settings() {
               <Button variant="success" type="submit" className="col-3">
                 Upload
               </Button>
-              <Button variant="danger" type="submit" className="col-3">
+              <Button
+                variant="danger"
+                type="submit"
+                className="col-3"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             </div>

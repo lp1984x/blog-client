@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { MyContext } from "../../context/Context";
 import { Icats } from "../../models";
 
 export default function NavB() {
   const [cats, setCats] = useState([]);
+  const { user } = useContext(MyContext);
 
   useEffect(() => {
     const getCats = async () => {
@@ -21,9 +23,11 @@ export default function NavB() {
         Home
       </Link>
 
-      <Link to="/write" className="nav-link">
-        Write
-      </Link>
+      {user && (
+        <Link to="/write" className="nav-link">
+          Write
+        </Link>
+      )}
 
       <NavDropdown
         title="Categories"
