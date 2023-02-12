@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Form, Button } from "react-bootstrap";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -19,12 +19,18 @@ export default function SinglePost() {
     categories: [],
     updatedAt: "",
   });
-  const PF = "http://localhost:5000/images/";
+  const [title, setTitle] = useState();
+  const [desc, setDesc] = useState();
+  const [updateMode, setUpdateMode] = useState(false);
+
+  //const PF = "http://localhost:5000/images/";
 
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
       setPost(res.data);
+      setTitle(res.data.title);
+      setDesc(res.data.desc);
     };
     getPost();
   }, [path]);
@@ -34,7 +40,18 @@ export default function SinglePost() {
       await axios.delete("/posts/" + path, {
         data: { username: user.username },
       });
-      window.location.replace("/");
+      setUpdateMode(false);
+    } catch (err) {}
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await axios.put("/posts/" + path, {
+        username: user.username,
+        title,
+        desc,
+      });
+      window.location.reload();
     } catch (err) {}
   };
 
@@ -43,34 +60,65 @@ export default function SinglePost() {
       {/* {post.photo && <Card.Img variant="top" src={PF + post.photo} />} */}
 
       <Card.Header className="d-flex justify-content-between">
-        <div>
-          <Card.Title>{post.title}</Card.Title>
+        {updateMode ? (
+          <Form.Control
+            type="text"
+            value={title}
+            onChange={(e: any) => setTitle(e.target.value)}
+          />
+        ) : (
+          <>
+            <div>
+              <Card.Title>{title}</Card.Title>
 
-          <small className="text-muted">
-            Author:{" "}
-            <Link
-              to={`/?user=${post.username}`}
-              style={{ all: "unset", cursor: "pointer" }}
-            >
-              {post.username}
-            </Link>
-          </small>
-        </div>
+              <small className="text-muted">
+                Author:{" "}
+                <Link
+                  to={`/?user=${post.username}`}
+                  style={{ all: "unset", cursor: "pointer" }}
+                >
+                  {post.username}
+                </Link>
+              </small>
+            </div>
 
-        {post.username === user?.username && (
-          <div>
-            <br />
-            <FaEdit style={{ cursor: "pointer" }} className="me-2" />
-            <FaTrashAlt style={{ cursor: "pointer" }} onClick={handleDelete} />
-          </div>
+            {post.username === user?.username && (
+              <div>
+                <br />
+                <FaEdit
+                  style={{ cursor: "pointer" }}
+                  className="me-2"
+                  onClick={() => setUpdateMode(true)}
+                />
+                <FaTrashAlt
+                  style={{ cursor: "pointer" }}
+                  onClick={handleDelete}
+                />
+              </div>
+            )}
+          </>
         )}
       </Card.Header>
       <Card.Body>
-        <Card.Text>{post.desc}</Card.Text>
+        {updateMode ? (
+          <Form.Control
+            as="textarea"
+            rows={12}
+            style={{ resize: "none" }}
+            value={desc}
+            onChange={(e: any) => setDesc(e.target.value)}
+          />
+        ) : (
+          <Card.Text>{desc}</Card.Text>
+        )}
       </Card.Body>
       <Card.Footer className="d-flex justify-content-between">
         <small className="text-muted">{post.categories}</small>
-
+        {updateMode && (
+          <Button variant="success" size="sm" onClick={handleUpdate}>
+            Apply
+          </Button>
+        )}
         <small className="text-muted">
           {new Date(post.updatedAt).toDateString()}
         </small>
