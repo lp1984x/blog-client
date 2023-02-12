@@ -9,15 +9,16 @@ interface PostP {
 }
 
 export default function Post({ post }: PostP) {
+  const PF = "http://localhost:5000/images/";
   return (
     <Card style={{ width: "38em" }} className="my-2 p-0">
-      {post.photo && (
+      {/* {post.photo && (
         <Card.Img
           variant="top"
-          src={post.photo}
+          src={PF + post.photo}
           style={{ height: "30em", pointerEvents: "none" }}
         />
-      )}
+      )} */}
       <Card.Header>
         <Link to={`/post/${post._id}`} style={{ all: "unset" }}>
           <Card.Title style={{ userSelect: "none", cursor: "pointer" }}>
@@ -26,7 +27,15 @@ export default function Post({ post }: PostP) {
         </Link>
 
         <Card.Subtitle className="mb-2 text-muted d-flex justify-content-between">
-          <small className="text-muted">Author: {post.username}</small>
+          <small className="text-muted">
+            Author:
+            <Link
+              to={`/?user=${post.username}`}
+              style={{ all: "unset", cursor: "pointer" }}
+            >
+              {post.username}
+            </Link>
+          </small>
           <small className="text-muted">
             {new Date(post.updatedAt).toDateString()}
           </small>

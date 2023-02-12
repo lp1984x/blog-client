@@ -17,6 +17,7 @@ export default function SinglePost() {
     categories: [],
     updatedAt: "",
   });
+  const PF = "http://localhost:5000/images/";
 
   useEffect(() => {
     const getPost = async () => {
@@ -28,7 +29,7 @@ export default function SinglePost() {
 
   return (
     <Card className="col-12">
-      {post.photo && <Card.Img variant="top" src={post.photo} />}
+      {/* {post.photo && <Card.Img variant="top" src={PF + post.photo} />} */}
 
       <Card.Header className="d-flex justify-content-between">
         <div>

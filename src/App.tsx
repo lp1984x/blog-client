@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Fotter";
+import Footer from "./components/Footer/Footer";
 import Home from "./components/pages/Home";
 import Settings from "./components/pages/Settings";
 import Single from "./components/pages/Single";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/write" element={<Write />} />
           <Route path="/post/:postId" element={<Single />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings" element={user ? <Settings /> : <Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/reg" element={<Reg />} />
