@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { IPost } from "../../models";
+import { MyContext } from "../../context/Context";
 
 export default function SinglePost() {
+  const { user } = useContext(MyContext);
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState<IPost>({
@@ -27,6 +29,15 @@ export default function SinglePost() {
     getPost();
   }, [path]);
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete("/posts/" + path, {
+        data: { username: user.username },
+      });
+      window.location.replace("/");
+    } catch (err) {}
+  };
+
   return (
     <Card className="col-12">
       {/* {post.photo && <Card.Img variant="top" src={PF + post.photo} />} */}
@@ -45,11 +56,14 @@ export default function SinglePost() {
             </Link>
           </small>
         </div>
-        <div>
-          <br />
-          <FaEdit className="me-2" />
-          <FaTrashAlt />
-        </div>
+
+        {post.username === user?.username && (
+          <div>
+            <br />
+            <FaEdit style={{ cursor: "pointer" }} className="me-2" />
+            <FaTrashAlt style={{ cursor: "pointer" }} onClick={handleDelete} />
+          </div>
+        )}
       </Card.Header>
       <Card.Body>
         <Card.Text>{post.desc}</Card.Text>

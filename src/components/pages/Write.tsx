@@ -14,7 +14,7 @@ import { IPost } from "../../models";
 export default function Write() {
   const [title, setTitle] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
-  const [file, setFile] = useState<any | null>(null);
+  //const [file, setFile] = useState<any | null>(null);
   const { user } = useContext(MyContext);
 
   const handleSubmit = async (e: any) => {
