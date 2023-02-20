@@ -5,10 +5,10 @@ import { Spinner } from "react-bootstrap";
 
 interface PostsProps {
   posts: IPost[];
-  load: boolean;
+  loading: boolean;
 }
 
-export default function Posts({ posts, load }: PostsProps) {
+export default function Posts({ posts, loading }: PostsProps) {
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="row">
@@ -17,7 +17,7 @@ export default function Posts({ posts, load }: PostsProps) {
         </div>
       </div>
       <div className="col-12 d-flex flex-wrap  row justify-content-between">
-        {load && (
+        {loading && (
           <Spinner
             animation="border"
             role="status"
