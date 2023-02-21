@@ -7,19 +7,20 @@ import Image from "react-bootstrap/Image";
 import { MyContext } from "../../context/Context";
 
 export default function Settings() {
-  const { dispatch } = useContext(MyContext);
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { user } = useContext(MyContext);
+  const { user, dispatch } = useContext(MyContext);
   const [suc, setSuc] = useState(false);
+  //const PF = "http://localhost:5000/images/"
   //const [file, setFile] = useState<any | null>(null);
 
   const handleUpdate = async (e: any) => {
     e.preventDefault();
+    dispatch({ type: "UPDATE_START" });
     const updatedUser = {
       userId: user._id,
       username,
@@ -38,9 +39,12 @@ export default function Settings() {
     } catch (err) {} */
 
     try {
-      await axios.put(`/users/${user._id}`, updatedUser);
+      const res = await axios.put(`/users/${user._id}`, updatedUser);
       setSuc(true);
-    } catch (err) {}
+      dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+    } catch (err) {
+      dispatch({ type: "UPDATE_FAILURE" });
+    }
   };
 
   return (
@@ -53,7 +57,7 @@ export default function Settings() {
           <Form onSubmit={handleUpdate}>
             <Form.Group controlId="formFile" className="mb-3">
               <Image
-                src={user.profilePic}
+                //src={file ? URL.createObjectURL(file): PF+user.profilePic}
                 roundedCircle
                 style={{ width: "3em", cursor: "pointer" }}
                 className="mb-2 me-2"

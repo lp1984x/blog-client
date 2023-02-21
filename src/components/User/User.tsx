@@ -4,11 +4,12 @@ import { MyContext } from "../../context/Context";
 
 export default function User() {
   const { user } = useContext(MyContext);
+  // const PF = "http://localhost:5000/images/"
   return (
     <Image
-      src={user.profilePic}
+      src={/* PF+ */ user.profilePic}
       roundedCircle
-      style={{ height: "3em", width: "3em", cursor: "pointer" }}
+      style={{ width: "3em", cursor: "pointer" }}
     />
   );
 }
