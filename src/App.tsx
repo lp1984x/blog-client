@@ -16,9 +16,9 @@ import { MyContext } from "./context/Context";
 function App() {
   const { user } = useContext(MyContext);
   return (
-    <div className="App ">
+    <div>
       <Header />
-      <Container className="cont">
+      <Container className="content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/write" element={<Write />} />
@@ -29,7 +29,6 @@ function App() {
           <Route path="/reg" element={<Reg />} />
         </Routes>
       </Container>
-
       <Footer />
     </div>
   );
